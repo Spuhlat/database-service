@@ -14,7 +14,7 @@ To start service, from the root of the project, run:
 
 to start the server.
 
-Note: that when developing and changes are made, the server will need to be restarted for changes to take effect.
+Note that when developing and changes are made, the server will need to be restarted for changes to take effect.
 
 ## Environment Variables
 `MONGO_HOST`: Hostname/IP address of mongodb server. Defaulted to `localhost`.
