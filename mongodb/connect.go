@@ -10,8 +10,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-var uri string = getURI()
-
 func getURI() string {
 	hostname := os.Getenv("MONGO_HOST")
 	if hostname == "" {
@@ -27,6 +25,8 @@ func getURI() string {
 // Connection URI
 
 func Connect() *mongo.Client {
+	uri := getURI()
+
 	// Create a new client and connect to the server
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {

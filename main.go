@@ -13,6 +13,7 @@ func main() {
 	fileServer := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fileServer)
 	http.HandleFunc("/mongodb", handleMongodb)
+	http.HandleFunc("/mongodb/something", handleMongodb)
 
 	fmt.Printf("Starting server at port 4000\n")
 	if err := http.ListenAndServe(":4000", nil); err != nil {
@@ -21,7 +22,9 @@ func main() {
 }
 
 func handleMongodb(w http.ResponseWriter, r *http.Request) {
-	if err := mongodb.Controller(r); err != nil {
+	err, data := mongodb.Controller(r)
+
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("500 - Internal Server Error"))
 		fmt.Println(err)
@@ -29,5 +32,5 @@ func handleMongodb(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Success!"))
+	w.Write([]byte(data))
 }
